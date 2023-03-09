@@ -78,6 +78,35 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+   (function(){
+      emailjs.init("xsKlIa6XMokyvXKo0");
+   })();
+   function sendMail() {
+    var params = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value,
+    };
+    const serviceId = "service_63bemj3";
+    const templateId = "template_nxalxyo";
+  
+    emailjs.send(serviceId, templateId, params)
+      .then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("message").value = "";
+        alert("Your message was sent successfully!");
+      }, function(error) {
+        console.log("FAILED...", error);
+        alert("Oops! There was a problem sending your message. Please try again.");
+      });
+  }
+</script>
 
 </head>
 <body>
@@ -828,22 +857,19 @@
                 <h2>CONTACT NIKHIL</h2>
                 <p class="section-subtitle"><span>Here i am</span></p>
                 <div class="row">
-                    <form method="post" action="mailto:knewboy.nykhil@gmail.com" enctype="text/plain">
+                    <form enctype="text/plain">
                         <div class="col-md-4">
-                            <input class="form-control" type="text" placeholder="Name" required>
+                            <input class="form-control" type="text" placeholder="Name" id="name" required>
                         </div>
                         <div class="col-md-4">
-                            <input class="form-control" type="email" placeholder="Email" required>
-                        </div>
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" placeholder="Subject" required>
+                            <input class="form-control" type="email" placeholder="Email" id="email" required>
                         </div>
                         <div class="col-sm-12">
-                            <textarea class="form-control" placeholder="Your Message"  required></textarea>
+                            <textarea class="form-control" placeholder="Your Message"  id= "message" required></textarea>
                         </div>
 
                         <div class="col-sm-12">
-                            <button class="btn btn-inverted">Send Message</button>
+                            <button class="btn btn-inverted" onclick="sendMail()">Send Message</button>
                         </div>  
                     </form>
                 </div>
